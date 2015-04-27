@@ -83,5 +83,3 @@ Next, we transpose the features data frame and use it as the names for the data 
 We then extend the data set by binding to it the Activity and Subject data, which makes then up to 81 variables.
 
 By using then the group_by() and summarise_each() functions from the dplyr package we can obtain the required data set which can be then written to file and uploaded for grading.
-Now perform  the required averages
-Write table to file
