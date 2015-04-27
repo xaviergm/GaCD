@@ -3,7 +3,9 @@
 
 Here you can find a description of the variables, the data and the transformations made to get to the final result.
 
-## Variables that will contain the original data.
+## Variables
+
+# Variables that will contain the original data.
 
 The following variables are used during the exercise to transform the data:
 
@@ -17,7 +19,7 @@ The following variables are used during the exercise to transform the data:
 8. activity_labels: Data frame used to load the data in the activity_labels.txt file of the unzipped data set. This contains the names of the activities in this data set in numerical format from 1 to 6 and their corresponding descriptive string. Its dimensions are 6 observations of 2 variables. The strings are: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING and LAYING.
 9. features: Data frame used to load the data in the features.txt file of the unzipped data set. This contains the names of the fields in this data set in numerical format from 1 to 561 and their corresponding descriptive string. Its dimensions are 561 observations of 2 variables.
 
-## Variables used to manipulate the data and come to a single data frame.
+# Variables used to manipulate the data and come to a single data frame.
 
 1. X_all: Data frame where the observation data of both the training and the test data sets are combined. Its dimensions are 10299 observations of 561 variables.
 2. y_all: Data frame where the activity codes of both the training and the test data sets are combined. Its dimensions are 10299 observations of 1 variables.
@@ -27,7 +29,7 @@ The following variables are used during the exercise to transform the data:
 6. X_std_mean: Data frame where only those columns that include mean or standard deviation values in the data set are left. Its dimensions are 10299 observations of 79 variables.
 7. complete_all: Data frame made from the combination of the Activity data frame, the Subject data frame and the X_std_mean data frame. Its dimensions are 10299 observations of 81 variables.
 
-## Variables used to come to the final requested data frame to be submitted
+# Variables used to come to the final requested data frame to be submitted
 
 1. complete_grouped: Data frame resulting from applying the function group_by() to the complete_all data frame in order to group it by Subject and Activity so that the averages of all the other columns can be lately be obtained. Its dimensions are 10299 observations of 81 variables.
 2. complete_summarized: Data frame resulting from applying the function summarise_each() to the data frame complete_grouped. Each row contains one activity per subject with the averages of the means and standard deviations of all the observations. Its dimensions are 180 observations of 81 variables.
@@ -39,14 +41,14 @@ The experiments have been carried out with a group of 30 volunteers within an ag
 
 The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain. See 'features_info.txt' for more details. 
 
-For each record it is provided:
+# For each record it is provided:
 * Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
 * Triaxial Angular velocity from the gyroscope. 
 * A 561-feature vector with time and frequency domain variables. 
 * Its activity label. 
 * An identifier of the subject who carried out the experiment.
 
-The dataset includes the following files:
+# The dataset includes the following files:
 * 'README.txt'
 * 'features_info.txt': Shows information about the variables used on the feature vector.
 * 'features.txt': List of all features.
@@ -56,12 +58,30 @@ The dataset includes the following files:
 * 'test/X_test.txt': Test set.
 * 'test/y_test.txt': Test labels.
 
-The following files are available for the train and test data. Their descriptions are equivalent. 
+# The following files are available for the train and test data. Their descriptions are equivalent. 
 * 'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
 * 'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis. 
 * 'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration. 
 * 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second. 
 
-Notes: 
+# Notes: 
 * Features are normalized and bounded within [-1,1].
 * Each feature vector is a row on the text file.
+
+## Transformations on the data in order to come to the final result
+
+Firstly, I create working directory structure and move into the directory. This is done in relative terms. So, from wherever the script is located, the directory is created and we move into it.
+Next, the required file is downloaded and unzipped.
+The required and only the required data files are loaded in R. These are the training and test normalized files, the variable  names, the activities and the subjects.
+
+Then, the two data sets are joined together by means of row binding.
+
+The IDs in the "y_all" data frame are then replaced by their descriptive strings (activity_labels) by the means of a for loop which walks through the entries and replaces the number from 1 to 6 by the string.
+
+Next, we transpose the features data frame and use it as the names for the data set and subset the data to only those columns that are means or standard deviations of the observations. This brings the number of variables down from 561 to 79. 
+
+We then extend the data set by binding to it the Activity and Subject data, which makes then up to 81 variables.
+
+By using then the group_by() and summarise_each() functions from the dplyr package we can obtain the required data set which can be then written to file and uploaded for grading.
+Now perform  the required averages
+Write table to file
