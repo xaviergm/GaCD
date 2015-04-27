@@ -38,9 +38,7 @@ for (i in 1:length(y_all[,1])) {
         Activity[i] <- as.character(activity_labels[y_all[i,1],2])
 }
 
-## Bind the labels of the observations to the corresponsing activities using the
-## newly translated vector with the actual names of the activities instead of
-## their numeric codes
+## Use the features vector as the names of the columns in the data set.
 names(X_all) <- t(features)[2,]
 ## Take only those columns with means or standard deviations
 std_mean <- sort(c(unlist(grep("std()",names(X_all))),unlist(grep("mean()",names(X_all)))))
