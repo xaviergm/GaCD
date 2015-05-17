@@ -43,8 +43,9 @@ for (i in 1:length(y_all[,1])) {
 ## Use the features vector as the names of the columns in the data set.
 names(X_all) <- t(features)[2,]
 ## Take only those columns with means or standard deviations
-std_mean <- sort(c(unlist(grep("std()",names(X_all))),unlist(grep("mean()",
-        names(X_all)))))
+std_mean <- sort(c(unlist(grep("std()",names(X_all))),
+                   unlist(grep("mean()",
+                   names(X_all)))))
 X_std_mean <- X_all[,std_mean]
 
 ## Bind Activity, Subject and the data frame with means and stds only.
